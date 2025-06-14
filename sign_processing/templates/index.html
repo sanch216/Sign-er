@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Переводчик в язык жестов</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+        <h1 class="text-2xl font-bold mb-4 text-center">Переводчик в язык жестов</h1>
+        <form method="POST" class="space-y-4">
+            <input 
+                type="text" 
+                name="text" 
+                placeholder="Введите текст" 
+                class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value="{{ request.form.get('text', '') }}"
+            >
+            <button 
+                type="submit"
+                class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+            >
+                Сгенерировать видео
+            </button>
+        </form>
+        {% if error %}
+            <p class="text-red-500 mt-4 text-center">{{ error }}</p>
+        {% endif %}
+        {% if video_url %}
+            <div class="mt-4">
+                <video controls class="w-full rounded">
+                    <source src="{{ video_url }}" type="video/webm">
+                    Ваш браузер не поддерживает видео.
+                </video>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
